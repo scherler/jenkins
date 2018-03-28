@@ -10,3 +10,10 @@ form .submit input{
     background-color: #4A90E2;
     border-color: #2171ce;
 }
+.danger {
+    border: 1px solid #C4000A;
+    box-shadow: 0 0 1px #C4000A;
+}
+.alert {
+    color: #C4000A;
+}

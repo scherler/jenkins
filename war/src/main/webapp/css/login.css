@@ -12,6 +12,7 @@ IE11 prevents of the usage of variable, hence login.ie.css
 :root {
   --main-bg-color-focus: #2171ce;
   --main-bg-color: #4A90E2;
+  --danger-color: #C4000A;
 }
 .absolute-center {
     display: -webkit-box;
@@ -32,7 +33,7 @@ IE11 prevents of the usage of variable, hence login.ie.css
     min-height: 90vh;
 }
 .logo {
-    background-image: url('../images/jenkins-login.png');
+    background-image: url('../images/jenkins.svg');
     background-repeat: no-repeat;
     background-position: 100px 0;
     height: 130px;
@@ -109,7 +110,12 @@ form .submit input{
 .checkbox label:hover::after {
 	opacity: 0.3;
 }
-
+.alert {
+    text-align: center;
+    color: var(--danger-color);
+    font-size: 14px;
+    line-height: 18px;
+}
 /**
  * Create the checkbox state for the tick
  */
@@ -120,6 +126,10 @@ form .submit input{
 .checkbox input[type=checkbox]:checked + label {
     background-color: var(--main-bg-color);
     border-color: var(--main-bg-color-focus);
+}
+.danger {
+    border: 1px solid var(--danger-color);
+    box-shadow: 0 0 1px var(--danger-color);
 }
 .checkboxWrapper {
     display: flex;

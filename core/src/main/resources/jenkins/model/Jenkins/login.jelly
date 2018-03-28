@@ -36,8 +36,9 @@ THE SOFTWARE.
       <j:new var="h" className="hudson.Functions" /><!-- instead of JSP functions -->
       ${h.initPageVariables(context)}
       <x:doctype name="html" />
-      <j:set var="from" value="${request.getParameter('from')}"/>
+      <j:set var="from" value="${error ? request.session.getAttribute('from') : request.getParameter('from')}"/>
       <j:set var="url" value="${request.getRequestURI()}"/>
+      <j:set var="inputClass" value="${error ? 'danger' : 'normal'}"/>
       <html>
         <head data-rooturl="${rootURL}" data-resurl="${resURL}" resURL="${resURL}">
           <title>${h.appendIfNotNull('Login', ' [Jenkins]', 'Jenkins')}</title>
@@ -57,13 +58,19 @@ THE SOFTWARE.
                   <h1>${%loginWelcome}</h1>
                   <!-- login form -->
                   <form name="login" action="${it.securityRealm.authenticationGatewayUrl}" method="post" style="text-size:smaller">
+                    <j:if test="${it.securityRealm.allowsSignup()}">
                       <div style="margin-top:2em">
                         ${%signUp}
                       </div>
-                    <j:if test="${it.securityRealm.allowsSignup()}">
+                    </j:if>
+                    <j:if test="${error}">
+                      <div class="alert alert-danger">
+                        ${%Invalid username or password}
+                      </div>
                     </j:if>
                     <div>
                       <input
+                        class="${inputClass}"
                         type="text"
                         name="j_username"
                         id="j_username"
@@ -73,19 +80,24 @@ THE SOFTWARE.
                       />
                     </div>
                     <div>
-                      <input type="password" name="j_password" placeholder="${%Password}" />
+                      <input
+                        class="${inputClass}"
+                        type="password"
+                        name="j_password"
+                        placeholder="${%Password}"
+                      />
                     </div>
                     <input type="hidden" name="from" value="${from}" />
                     <div class="submit"><f:submit value="${%signIn}" /></div>
-                    <div class="checkboxWrapper">
-                      <div class="checkbox">
-                        <input type="checkbox" value="1" id="remember_me" name="checkboxInput" />
-                        <label for="remember_me"> </label>
-                      </div>
-                      <span>${%Keep me signed in}</span>
-                    </div>
                     <j:if test="${app.security.name()=='SECURED' and !app.disableRememberMe}">
                       <!-- remember me service only available for Acegi -->
+                      <div class="checkboxWrapper">
+                        <div class="checkbox">
+                          <input type="checkbox" value="1" id="remember_me" name="checkboxInput" />
+                          <label for="remember_me"> </label>
+                        </div>
+                        <span>${%Keep me signed in}</span>
+                      </div>
                     </j:if>
                     <div>
                       <a href="${url}?from=${from}&amp;legacy=true">${%Legacy login}</a>
