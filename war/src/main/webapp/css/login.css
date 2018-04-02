@@ -6,6 +6,9 @@ html {
     line-height: 18px;
     text-align: center;
 }
+h1 {
+    font-size: 24px;
+}
 /*
 IE11 prevents of the usage of variable, hence login.ie.css
  */
@@ -45,15 +48,19 @@ form {
 }
 input {
     width: 100%;
-    padding: 6px 20px;
+    padding: 6px 8px;
     display: inline-block;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
+    font-size: 18px;
 }
 input[type=text],
 input[type=password],
 input[type=submit] {
     box-sizing: border-box;
+}
+input[type=submit] {
+    text-align: center;
 }
 form div {
     margin-top: 16px;
