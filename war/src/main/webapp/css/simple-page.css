@@ -133,3 +133,20 @@ html {
 .layout-large {
     font-size: 18px;
 }
+
+.group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerLogin {
+  display: flex;
+  align-items: center;
+}
