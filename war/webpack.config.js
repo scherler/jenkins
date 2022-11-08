@@ -39,6 +39,7 @@ module.exports = (env, argv) => ({
     "filter-build-history": [path.join(__dirname, "src/main/js/filter-build-history.js")],
     "simple-page": [path.join(__dirname, "src/main/less/simple-page.less")],
     "styles": [path.join(__dirname, "src/main/less/styles.less")],
+    "material": [path.join(__dirname, "src/main/js/material.js")],
   },
   output: {
     path: path.join(__dirname, "src/main/webapp/jsbundles"),
