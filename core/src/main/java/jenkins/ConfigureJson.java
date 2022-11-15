@@ -8,16 +8,21 @@ import hudson.util.HttpResponses;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 import jenkins.model.GlobalConfigurationCategory;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.kohsuke.MetaInfServices;
+import org.kohsuke.stapler.Facet;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.WebMethod;
+import org.kohsuke.stapler.jelly.JellyFacet;
 import org.kohsuke.stapler.verb.GET;
 
 @Extension
-public class ConfigureJson implements RootAction {
+@MetaInfServices(Facet.class)
+public class ConfigureJson extends JellyFacet implements RootAction {
     private static final Logger LOGGER = Logger.getLogger(ConfigureJson.class.getName());
 
     @Override
@@ -62,4 +67,19 @@ public class ConfigureJson implements RootAction {
         });
         return HttpResponses.okJSON(JSONArray.fromObject(response));
     }
+
+    @Override
+    public Collection<String> getScriptExtensions() {
+        return EXTENSION;
+    }
+
+    @Override
+    protected String getExtensionSuffix() {
+        return EXT;
+    }
+
+    private static final String EXT = ".wc";
+
+    private static final Set<String> EXTENSION = Set.of(EXT);
+
 }
