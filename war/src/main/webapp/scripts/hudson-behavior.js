@@ -1477,7 +1477,7 @@ function rowvgStartEachRow(recursive,f) {
      *
      * @param {HTMLLabelElement} label
      */
-    Behaviour.specify('jenkins-formfield.js-checkbox-label-empty', 'form-fallbacks', 1000, function(label) {
+    Behaviour.specify('mwc-formfield.js-checkbox-label-empty', 'form-fallbacks', 1000, function(label) {
         var labelParent = label.parentElement.parentElement;
 
         if (!labelParent.classList.contains('setting-main')) return;
@@ -1485,7 +1485,7 @@ function rowvgStartEachRow(recursive,f) {
         function findSettingName(formGroup) {
             for (var i=0; i<formGroup.childNodes.length; i++) {
                 var child = formGroup.childNodes[i];
-                if (child.classList.contains('jenkins-form-label') || child.classList.contains('setting-name')) return child;
+                if (child.classList.contains('mwc-form-label') || child.classList.contains('setting-name')) return child;
             }
         }
 
