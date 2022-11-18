@@ -73,24 +73,19 @@ THE SOFTWARE.
   <j:set var="default" value="${attrs.default ?: false}"/>
   <j:set var="value" value="${attrs.checked ?: instance[attrs.field] ?: default}"/>
 
-  <l:js src="jsbundles/material.js" />
+  <l:js src="jsbundles/web-components.js" type="module"/>
 
   <span class="jenkins-checkbox">
-    <mwc-formfield
-      class="attach-previous ${attrs.title == null ? 'js-checkbox-label-empty' : ''}"
-      title="${attrs.tooltip}"
-      label="${attrs.title}"
-    >
-      <mwc-checkbox
-          name="${name}"
-          disabled="${readOnlyMode ? 'true' : null}"
-          checked="${value ? 'true' : null}"
-          value="${attrs.value}"
-          title="${attrs.tooltip}"
-          onclick="${attrs.readonly=='true' ? 'return false;' : attrs.onclick}" id="${attrs.id}" class="${attrs.class} ${attrs.negative!=null ? 'negative' : null} ${attrs.checkUrl!=null?'validated':''}"
-          checkUrl="${attrs.checkUrl}" checkDependsOn="${attrs.checkDependsOn}" json="${attrs.json}"
-      ></mwc-checkbox>
-    </mwc-formfield>
+    <jenkins-checkbox
+      tooltip="${attrs.tooltip}"
+      title="${attrs.title}"
+      name="${name}"
+      value="${attrs.value}"
+      disabled="${readOnlyMode ? 'true' : null}"
+      checked="${value ? 'true' : null}"
+      id="${attrs.id}"
+  ></jenkins-checkbox>
+
   </span>
   <j:if test="${customizedFields != null and attrs.field != null and value != default}">
     <j:mute>${customizedFields.add(name)}</j:mute>

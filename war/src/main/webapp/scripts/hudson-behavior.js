@@ -1247,7 +1247,7 @@ function rowvgStartEachRow(recursive,f) {
 
     Behaviour.specify("TR.optional-block-start,DIV.tr.optional-block-start", "tr-optional-block-start-div-tr-optional-block-start", ++p, function(e) { // see optionalBlock.jelly
         // Get the `input` from the checkbox container
-        var checkbox = e.querySelector("mwc-checkbox")
+        var checkbox = e.querySelector("jenkins-checkbox")
 
         // Set start.ref to checkbox in preparation of row-set-end processing
         e.setAttribute("ref", checkbox.id = "cb"+(iota++));
@@ -1296,7 +1296,7 @@ function rowvgStartEachRow(recursive,f) {
         };
     });
 
-    Behaviour.specify("MWC-CHECKBOX.optional-block-event-item", "mwc-checkbox-optional-block-event-item", ++p, function(e) {
+    Behaviour.specify("JENKINS-CHECKBOX.optional-block-event-item", "jenkins-checkbox-optional-block-event-item", ++p, function(e) {
       e.addEventListener('change', function() {
         updateOptionalBlock(e, true);
       });
@@ -1329,7 +1329,7 @@ function rowvgStartEachRow(recursive,f) {
         // can sandwich row-set-end
         // this requires "TR.row-set-end" to mark rows
         // Get the `input` from the checkbox container
-        var checkbox = e.querySelector("mwc-checkbox")
+        var checkbox = e.querySelector("jenkins-checkbox")
         updateOptionalBlock(checkbox,false);
     });
 
@@ -1477,7 +1477,7 @@ function rowvgStartEachRow(recursive,f) {
      *
      * @param {HTMLLabelElement} label
      */
-    Behaviour.specify('mwc-formfield.js-checkbox-label-empty', 'form-fallbacks', 1000, function(label) {
+    Behaviour.specify('jenkins-formfield.js-checkbox-label-empty', 'form-fallbacks', 1000, function(label) {
         var labelParent = label.parentElement.parentElement;
 
         if (!labelParent.classList.contains('setting-main')) return;
@@ -2277,7 +2277,7 @@ var hoverNotification = (function() {
 // Decrease vertical padding for checkboxes
 window.addEventListener('load', function () {
     document.querySelectorAll(".jenkins-form-item").forEach(function (element) {
-        if (element.querySelector(".optionalBlock-container > .row-group-start mwc-checkbox, .optional-block-start mwc-checkbox, div > .jenkins-checkbox") != null) {
+        if (element.querySelector(".optionalBlock-container > .row-group-start jenkins-checkbox, .optional-block-start jenkins-checkbox, div > .jenkins-checkbox") != null) {
             element.classList.add("jenkins-form-item--tight")
         }
     });
