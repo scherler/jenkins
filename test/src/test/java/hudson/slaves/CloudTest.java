@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.Action;
@@ -21,6 +22,11 @@ import java.util.Collections;
 import jenkins.model.Jenkins;
 import jenkins.model.TransientActionFactory;
 import org.acegisecurity.acls.sid.Sid;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.DomNodeList;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlInput;
 import org.htmlunit.html.HtmlPage;
 import org.junit.Rule;
 import org.junit.Test;
@@ -58,7 +64,7 @@ public class CloudTest {
     public void ui() throws Exception {
         ACloud aCloud = new ACloud("a", "0");
         j.jenkins.clouds.add(aCloud);
-
+        
         assertThat(aCloud.getAllActions(), containsInAnyOrder(
                 instanceOf(TaskCloudAction.class),
                 instanceOf(ReportingCloudAction.class)
@@ -76,6 +82,17 @@ public class CloudTest {
         HtmlPage actionPage = page.getAnchorByText("Task Action").click();
         out = actionPage.getWebResponse().getContentAsString();
         assertThat(out, containsString("doIndex called")); // doIndex
+    }
+
+    @Test
+    public void uiRename() throws Exception {
+        ACloud aCloud = new ACloud("test", "0");
+        j.jenkins.clouds.add(aCloud);
+        HtmlPage page = j.createWebClient().goTo(aCloud.getUrl()+"configure");
+        HtmlForm f = page.getFormByName("config");
+        HtmlInput cloudName = getInputByName(f, "_.name");
+        cloudName.setValue("default-workspace-volume");
+        j.submit(f);
     }
 
     @Test
@@ -146,5 +163,15 @@ public class CloudTest {
         @Override public String getUrlName() {
             return null; // not URL space
         }
+    }
+
+    public HtmlInput getInputByName(DomElement root, String name) {
+        DomNodeList<HtmlElement> inputs = root.getElementsByTagName("input");
+        for (HtmlElement input : inputs) {
+            if (name.equals(input.getAttribute("name"))) {
+                return (HtmlInput) input;
+            }
+        }
+        return null;
     }
 }
